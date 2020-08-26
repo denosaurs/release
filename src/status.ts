@@ -56,14 +56,20 @@ export async function fetchStatus(repo: string): Promise<Status> {
     },
   };
 
-  function box(code: string, changes: Changes, path: string, to?: string,) {
+  function box(code: string, changes: Changes, path: string, to?: string) {
     switch (code) {
-      case "M": return changes.modified.push(path);
-      case "A": return changes.added.push(path);
-      case "D": return changes.deleted.push(path);
-      case "C": return changes.copied.push(path);
-      case "U": return changes.updated.push(path);
-      case "R": return changes.renamed.push({ path, to: to! });
+      case "M":
+        return changes.modified.push(path);
+      case "A":
+        return changes.added.push(path);
+      case "D":
+        return changes.deleted.push(path);
+      case "C":
+        return changes.copied.push(path);
+      case "U":
+        return changes.updated.push(path);
+      case "R":
+        return changes.renamed.push({ path, to: to! });
     }
   }
 

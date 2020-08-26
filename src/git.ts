@@ -36,13 +36,13 @@ export function gitconfig(source: string): GitConfig {
 }
 
 interface GitConfigCore {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Remote {
   url: string;
   fetch: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface GitConfigRemote {
@@ -52,7 +52,7 @@ interface GitConfigRemote {
 export interface Branch {
   remote: string;
   merge: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface GitConfigBranch {

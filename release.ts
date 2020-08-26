@@ -37,14 +37,14 @@ usage: ${colors.yellow("release")} [options] [type] [...]
     logger.critical(`"${arg}" is not a valid action!`);
     Deno.exit(1);
   }
-  if (arg === "pre") arg = "prerelease"
+  if (arg === "pre") arg = "prerelease";
 
   const action = arg as Action;
   let suffix = undefined;
   if (action === "prerelease") {
     if (args[1]) suffix = args[1];
     else suffix = "canary";
-  } 
+  }
 
   const config: ReleaseConfig = {
     plugins: [github],
@@ -104,7 +104,7 @@ usage: ${colors.yellow("release")} [options] [type] [...]
   }
 
   const bump = wait(
-    `Releasing ${colors.bold(to)} ${colors.dim(`(latest was ${from})`)}`
+    `Releasing ${colors.bold(to)} ${colors.dim(`(latest was ${from})`)}`,
   ).start();
   try {
     await pushBump(repo, to);
@@ -112,7 +112,7 @@ usage: ${colors.yellow("release")} [options] [type] [...]
     bump.fail(`Unable to release ${colors.bold(to)}`);
     Deno.exit(1);
   }
-  bump.succeed(`Released ${colors.bold(to)}`)
+  bump.succeed(`Released ${colors.bold(to)}`);
 
   if (features.postCommit) {
     for (const plugin of config.plugins) {
