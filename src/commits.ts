@@ -1,3 +1,5 @@
+import { ccparse, CCCommit } from "../deps.ts";
+
 import { git } from "./git.ts";
 import { Tag } from "./tags.ts";
 import { ReleaseError } from "./error.ts";
@@ -7,6 +9,7 @@ export interface RawCommit {
   title: string;
   description: string;
   author: string;
+  cc: CCCommit;
 }
 
 export async function fetchRawCommits(
@@ -18,7 +21,7 @@ export async function fetchRawCommits(
 
   // How the output shoud look like
   const spec = ["s", "n", "ae", "b"]; // add at
-  const format = `${inner}%${spec.join(`${inner}%`)}${outer}`;
+  const format = `${inner} %${spec.join(`${inner}%`)}${outer}`;
 
   const [status, output, err] = await git(repo, [
     "rev-list",
@@ -36,12 +39,20 @@ export async function fetchRawCommits(
     .map((item) => {
       const splitted = item.split(String(inner));
       const details = splitted.map((i) => i.trim()).filter((i) => i);
+      const hash = details[0].split(" ")[1];
+      const title = details[1] || "";
+      const description = details[3] || "";
+      const author = details[2];
+
+      const body = `${title}\n${description}`;
+      const cc = ccparse(body);
 
       return {
-        hash: details[0].split(" ")[1],
-        title: details[1] || "",
-        description: details[3] || "",
-        author: details[2],
+        hash,
+        title,
+        description,
+        author,
+        cc,
       };
     })
     .filter((i) => i);
@@ -50,11 +61,7 @@ export async function fetchRawCommits(
   return commits;
 }
 
-export interface Commit {
-  hash: string;
-  title: string;
-  description: string;
-  author: string;
+export interface Commit extends RawCommit {
   belongs: Tag | null;
 }
 

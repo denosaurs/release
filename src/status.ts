@@ -2,10 +2,10 @@ import { git } from "./git.ts";
 import { ReleaseError } from "./error.ts";
 
 export interface Status {
-  raw: Raw[];
   untracked: string[];
   index: Changes;
   tree: Changes;
+  raw: Raw[];
 }
 
 type Path = string;

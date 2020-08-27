@@ -1,6 +1,8 @@
 import { log, readLines, encode } from "./deps.ts";
 
-import { ReleasePlugin, store, gh } from "../../plugin.ts";
+import { ReleasePlugin, store } from "../../plugin.ts";
+
+import * as gh from "./api.ts";
 
 const logger = log.prefix("gh");
 

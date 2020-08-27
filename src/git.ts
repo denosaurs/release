@@ -1,5 +1,7 @@
 import { decode, join, ini } from "../deps.ts";
 
+import { ReleaseError } from "./error.ts";
+
 export async function git(
   repo: string,
   args: string[] | string,
@@ -19,7 +21,17 @@ export async function git(
   return [status, decode(output), decode(err)];
 }
 
-export function gitconfig(source: string): GitConfig {
+export async function ezgit(
+  repo: string,
+  args: string[] | string,
+): Promise<void> {
+  const [status, _, err] = await git(repo, args);
+  if (!status.success) throw new ReleaseError("GIT_EXE", err);
+}
+
+export async function fetchConfig(repo: string): Promise<GitConfig> {
+  const path = join(repo, ".git", "config");
+  let source = await Deno.readTextFile(path);
   source = source.replace(/\[(\S+) "(.*)"\]/g, (m, $1, $2) => {
     return $1 && $2 ? `[${$1} "${$2.split(".").join("\\.")}"]` : m;
   });

@@ -2,10 +2,12 @@ import { log, colors, semver, wait } from "./deps.ts";
 
 import { ReleaseConfig } from "./config.ts";
 import { fetchRepo, Repo } from "./src/repo.ts";
-import { github } from "./plugins/github/mod.ts";
-import { pushBump } from "./src/bump.ts";
+import { git, ezgit } from "./src/git.ts";
 
-const logger = log.prefix("@");
+import { github } from "./plugins/github/mod.ts";
+import { changelog } from "./plugins/changelog/mod.ts";
+
+const logger = log.prefix("r");
 
 const VERSION = "0.1.0";
 
@@ -47,7 +49,7 @@ usage: ${colors.yellow("release")} [options] [type] [...]
   }
 
   const config: ReleaseConfig = {
-    plugins: [github],
+    plugins: [github, changelog],
   };
 
   const features = {
@@ -77,19 +79,24 @@ usage: ${colors.yellow("release")} [options] [type] [...]
   try {
     repo = await fetchRepo(Deno.cwd());
   } catch (err) {
-    fetch.fail("Unable to load repo");
+    fetch.fail(Deno.inspect(err));
     Deno.exit(1);
   }
   fetch.succeed("Project loaded correctly");
 
   const [latest] = repo.tags;
-  const from = latest.version;
+  const from = latest ? latest.version : "0.0.0";
   const to = semver.inc(from, action, undefined, suffix)!;
 
+  let integrity = wait("Checking the project").start();
   if (repo.status.raw.length !== 0) {
-    logger.critical("You have uncommitted changes on your repository!");
+    integrity.fail("Uncommitted changes on your repository!");
+    Deno.exit(1);
+  } else if (!repo.commits.some((_) => _.belongs === null)) {
+    integrity.fail(`No changes since the last release!`);
     Deno.exit(1);
   }
+  integrity.succeed("Project check successful");
 
   if (features.preCommit) {
     for (const plugin of config.plugins) {
@@ -103,16 +110,40 @@ usage: ${colors.yellow("release")} [options] [type] [...]
     }
   }
 
+  try {
+    repo = await fetchRepo(Deno.cwd());
+  } catch (err) {
+    Deno.exit(1);
+  }
+
+  if (repo.status.raw.length !== 0) {
+    try {
+      await ezgit(repo.path, "add -A");
+    } catch (err) {
+      logger.critical(err.message);
+      Deno.exit(1);
+    }
+  }
+
   const bump = wait(
     `Releasing ${colors.bold(to)} ${colors.dim(`(latest was ${from})`)}`,
   ).start();
   try {
-    await pushBump(repo, to);
+    await ezgit(repo.path, [
+      "commit",
+      "--allow-empty",
+      "--message",
+      `chore: release ${to}`,
+    ]);
+    await ezgit(repo.path, `tag ${to}`);
+    await ezgit(repo.path, "push");
+    await ezgit(repo.path, "push --tags");
   } catch (err) {
-    bump.fail(`Unable to release ${colors.bold(to)}`);
+    bump.fail(`Unable to release ${colors.bold(to)}\n`);
+    logger.critical(err.message);
     Deno.exit(1);
   }
-  bump.succeed(`Released ${colors.bold(to)}`);
+  bump.succeed(`Released ${colors.bold(to)}!`);
 
   if (features.postCommit) {
     for (const plugin of config.plugins) {
