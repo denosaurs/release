@@ -1,14 +1,16 @@
-interface Verification {
+interface Response {
   ok: boolean;
   err?: string;
 }
 
+const BASE = "https://api.github.com";
+
 const reToken = /^\w+$/;
 
-export async function verifyToken(token: string): Promise<Verification> {
+export async function verifyToken(token: string): Promise<Response> {
   if (!token) return { ok: false, err: "Empty token" };
   if (!reToken.test(token)) return { ok: false, err: "Malformed token" };
-  const res = await fetch("https://api.github.com", {
+  const res = await fetch(BASE, {
     headers: {
       Authorization: `token ${token}`,
     },
@@ -23,4 +25,33 @@ export async function verifyToken(token: string): Promise<Verification> {
   } else {
     return { ok: false, err: "Missing <repo> scope" };
   }
+}
+
+interface Release {
+  tag_name: string;
+  name: string;
+  body: string;
+  draft: boolean;
+  prerelease: boolean;
+}
+
+export async function createRelease(
+  token: string,
+  owner: string,
+  repo: string,
+  release: Release,
+): Promise<Response> {
+  if (!token) return { ok: false, err: "Empty token" };
+  if (!reToken.test(token)) return { ok: false, err: "Malformed token" };
+  const res = await fetch(`${BASE}/repos/${owner}/${repo}/releases`, {
+    method: "POST",
+    headers: {
+      Authorization: `token ${token}`,
+    },
+    body: JSON.stringify(release),
+  });
+  console.log(res);
+  if (res.status !== 200) return { ok: false, err: "Non-zero status" };
+  console.log(await res.json());
+  return { ok: true };
 }

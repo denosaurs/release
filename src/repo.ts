@@ -7,10 +7,20 @@ import { fetchTags, Tag } from "./tags.ts";
 import { fetchStatus, Status } from "./status.ts";
 import { fetchConfig, GitConfig } from "./git.ts";
 
+export interface Github {
+  user: string;
+  name: string;
+}
+
+export interface Remote {
+  raw: string;
+  github: Github | null;
+}
+
 export interface Repo {
   path: string;
   branch: string;
-  remote: string | null;
+  remote: Remote | null;
   tags: Tag[];
   commits: Commit[];
   status: Status;
@@ -28,11 +38,28 @@ export async function fetchRepo(path: string): Promise<Repo> {
 
   const config = await fetchConfig(path);
 
-  let remote = null;
+  let remote: Remote | null = null;
   if (config.branch && config.branch[branch]) {
     const branchRef = config.branch[branch];
     const remoteRef = config.remote[branchRef.remote];
-    remote = remoteRef.url;
+    remote = {
+      raw: remoteRef.url,
+      github: null,
+    };
+    const reGithub =
+      /(?:(?:https?:\/\/github\.com\/)|git@github\.com:)(.*)\/(.*)/;
+    if (reGithub.test(remote.raw)) {
+      const match = reGithub.exec(remote.raw);
+      if (match) {
+        remote.github = {
+          user: match[1],
+          name: match[2],
+        };
+        if (remote.github.name.endsWith(".git")) {
+          remote.github.name = remote.github.name.replace(".git", "");
+        }
+      }
+    }
   }
 
   const tags = await fetchTags(path);

@@ -1,7 +1,7 @@
 import { join, exists, ensureFile } from "../deps.ts";
 import { home } from "./dirs.ts";
 
-const STORE_PATH = [".config", ".release"];
+const STORE_PATH = [".config", "release"];
 
 export const known = {
   github: "GITHUB_TOKEN",
