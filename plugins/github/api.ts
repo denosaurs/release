@@ -9,6 +9,7 @@ const reToken = /^\w+$/;
 
 export async function verifyToken(token: string): Promise<Response> {
   if (!token) return { ok: false, err: "Empty token" };
+  token = token.trim();
   if (!reToken.test(token)) return { ok: false, err: "Malformed token" };
   const res = await fetch(BASE, {
     headers: {
