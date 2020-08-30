@@ -2,6 +2,7 @@ const causes = {
   GIT_EXE: "non-zero status returned by a git command",
   NO_REPO: "not a valid git repository",
   UNINITIALIZED_REPO: "repo is not initialized",
+  PLUGIN: "plugin error",
 };
 
 export class ReleaseError extends Error {

@@ -16,6 +16,7 @@ import {
 } from "../../src/changelog.ts";
 
 import * as gh from "./api.ts";
+import { ReleaseError } from "../../src/error.ts";
 
 const logger = log.prefix("gh");
 
@@ -71,13 +72,14 @@ export const github = <ReleasePlugin> {
     if (!config.dry) {
       let token = (await store.get(store.known.github)) as string;
       const { user, name } = repo.remote.github;
-      gh.createRelease(token, user, name, {
+      const result = await gh.createRelease(token, user, name, {
         tag_name: to,
         name: `v${to}`,
         body: render(doc),
         prerelease: action.startsWith("pre"),
         draft: true,
       });
+      if (!result.ok) throw new ReleaseError("PLUGIN", result.err);
     }
   },
 };

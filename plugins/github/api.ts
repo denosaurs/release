@@ -50,8 +50,6 @@ export async function createRelease(
     },
     body: JSON.stringify(release),
   });
-  console.log(res);
-  if (res.status !== 200) return { ok: false, err: "Non-zero status" };
-  console.log(await res.json());
+  if (res.status !== 201) return { ok: false, err: "Release not created" };
   return { ok: true };
 }
