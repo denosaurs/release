@@ -10,7 +10,7 @@ import { zen } from "./zen.ts";
 
 const logger = log.prefix("r");
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.2";
 
 export type Action =
   | "patch"
@@ -138,7 +138,7 @@ example: ${colors.yellow("release")} major
     integrity.fail(`No changes since the last release!`);
     Deno.exit(1);
   }
-  integrity.succeed("Project check successful!");
+  integrity.succeed("Project check successful");
 
   if (features.preCommit) {
     for (const plugin of config.plugins) {
