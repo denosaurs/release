@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [0.1.2] - 2020-08-31
+
+### Bug Fixes
+
+- trim token ([`8e4a507`])
+
 ## [0.1.1] - 2020-08-30
 
 ### Bug Fixes
@@ -21,6 +27,8 @@ and this project adheres to [Semantic Versioning].
 
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
+[0.1.2]: https://github.com/denosaurs/release/compare/0.1.1...0.1.2
+[`8e4a507`]: https://github.com/denosaurs/release/commit/8e4a5070af25a568b6a9b8d313edd2fe20cc8882
 [0.1.1]: https://github.com/denosaurs/release/compare/0.1.0...0.1.1
 [`a6b6859`]: https://github.com/denosaurs/release/commit/a6b685915b06495c798cacb0c58617e9e5dcfbc6
 [0.1.0]: https://github.com/denosaurs/release/compare/0.1.0
