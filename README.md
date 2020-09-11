@@ -13,7 +13,7 @@
 ## Installation
 
 ```
-$ deno install -A -f --unstable https://deno.land/x/release@0.1.1/release.ts
+$ deno install -A -f --unstable https://deno.land/x/release@0.1.2/release.ts
 ```
 
 ## Usage
