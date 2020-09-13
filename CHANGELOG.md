@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [0.1.4] - 2020-09-13
+
+### Bug Fixes
+
+- windows home directory ([`49beb52`])
+
 ## [0.1.3] - 2020-09-13
 
 ### Features
@@ -33,6 +39,8 @@ and this project adheres to [Semantic Versioning].
 
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
+[0.1.4]: https://github.com/denosaurs/release/compare/0.1.3...0.1.4
+[`49beb52`]: https://github.com/denosaurs/release/commit/49beb522546aaceac3124e033661863f0e3d617e
 [0.1.3]: https://github.com/denosaurs/release/compare/0.1.2...0.1.3
 [`2140120`]: https://github.com/denosaurs/release/commit/214012013594c5b3831c5a006a22bd5306a13fdd
 [0.1.2]: https://github.com/denosaurs/release/compare/0.1.1...0.1.2
