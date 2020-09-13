@@ -1,4 +1,5 @@
 {"version": 2, "width": 61, "height": 58, "timestamp": 1598897849, "env": {"SHELL": "/bin/zsh", "TERM": "xterm-256color"}}
+[0, "o", "$ release patch\r\n"]
 [0.772547, "o", "\u001b[36m⠋\u001b[39m Loading project info\r\n"]
 [0.851344, "o", "\u001b[1A\u001b[2K"]
 [0.851482, "o", "\u001b[-1C\u001b[?25h\u001b[32m✔\u001b[39m Project loaded correctly\r\n"]

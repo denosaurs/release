@@ -13,7 +13,7 @@
 ## Installation
 
 ```
-$ deno install -A -f --unstable https://deno.land/x/release@0.1.2/release.ts
+$ deno install -A -f --unstable https://deno.land/x/release@0.1.3/release.ts
 ```
 
 ## Usage
@@ -36,6 +36,10 @@ example: release major
     * preminor <name>   eg: 1.2.3 -> 1.2.4-name
     * premajor <name>   eg: 1.2.3 -> 1.2.4-name
 ```
+
+## Maintainers
+
+- Filippo Rossi ([@qu4k](https://github.com/qu4k))
 
 ## Other
 
