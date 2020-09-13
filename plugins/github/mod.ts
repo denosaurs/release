@@ -39,7 +39,7 @@ export const github = <ReleasePlugin> {
         Deno.exit(1);
       }
       logger.info("Token saved to local store!");
-      await store.set(store.known.github, token);
+      await store.set(store.known.github, token.trim());
     }
   },
   async postCommit(
