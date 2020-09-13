@@ -4,6 +4,6 @@ export function home(): string | null {
     case "darwin":
       return Deno.env.get("HOME") ?? null;
     case "windows":
-      return Deno.env.get("FOLDERID_Profile") ?? null;
+      return Deno.env.get("USERPROFILE") ?? null;
   }
 }
