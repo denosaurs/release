@@ -1,6 +1,11 @@
 import { join } from "./deps.ts";
 
-import type { ReleasePlugin, ReleaseConfig, Action, Repo } from "../../plugin.ts";
+import type {
+  ReleasePlugin,
+  ReleaseConfig,
+  Action,
+  Repo,
+} from "../../plugin.ts";
 import {
   Document,
   Filter,
