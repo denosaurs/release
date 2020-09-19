@@ -1,6 +1,6 @@
 import { log, colors, semver, wait, delay } from "./deps.ts";
 
-import { ReleaseConfig } from "./config.ts";
+import type { ReleaseConfig } from "./config.ts";
 import { fetchRepo, Repo } from "./src/repo.ts";
 import { ezgit } from "./src/git.ts";
 
@@ -8,7 +8,7 @@ import { github } from "./plugins/github/mod.ts";
 import { changelog } from "./plugins/changelog/mod.ts";
 import { zen } from "./zen.ts";
 
-const logger = log.prefix("r");
+const logger = log.create("r");
 
 const VERSION = "0.1.2";
 

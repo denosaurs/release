@@ -1,4 +1,4 @@
-import { ReleasePlugin } from "./plugin.ts";
+import type { ReleasePlugin } from "./plugin.ts";
 
 export interface ReleaseConfig {
   plugins: ReleasePlugin[];

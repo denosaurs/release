@@ -1,14 +1,14 @@
-import { ReleaseConfig } from "./config.ts";
-import { Action } from "./release.ts";
-import { Repo } from "./src/repo.ts";
+import type { ReleaseConfig } from "./config.ts";
+import type { Action } from "./release.ts";
+import type { Repo } from "./src/repo.ts";
+
+export type { ReleaseConfig } from "./config.ts";
+export type { Action } from "./release.ts";
+export type { Repo } from "./src/repo.ts";
+export type { Tag } from "./src/tags.ts";
+export type { Commit } from "./src/commits.ts";
 
 export * as store from "./src/store.ts";
-
-export { ReleaseConfig } from "./config.ts";
-export { Action } from "./release.ts";
-export { Repo } from "./src/repo.ts";
-export { Tag } from "./src/tags.ts";
-export { Commit } from "./src/commits.ts";
 
 export interface ReleasePlugin {
   name: string;

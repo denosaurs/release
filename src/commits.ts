@@ -1,7 +1,7 @@
 import { ccparse, CCCommit } from "../deps.ts";
 
 import { git } from "./git.ts";
-import { Tag } from "./tags.ts";
+import type { Tag } from "./tags.ts";
 import { ReleaseError } from "./error.ts";
 
 export interface RawCommit {

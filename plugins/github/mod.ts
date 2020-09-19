@@ -18,7 +18,7 @@ import {
 import * as gh from "./api.ts";
 import { ReleaseError } from "../../src/error.ts";
 
-const logger = log.prefix("gh");
+const logger = log.create("gh");
 
 export const github = <ReleasePlugin> {
   name: "GitHub",

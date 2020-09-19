@@ -1,6 +1,6 @@
-import { Repo } from "./repo.ts";
-import { Commit } from "./commits.ts";
-import { Tag } from "./tags.ts";
+import type { Repo } from "./repo.ts";
+import type { Commit } from "./commits.ts";
+import type { Tag } from "./tags.ts";
 
 export interface Filter {
   type: string;
