@@ -1,4 +1,4 @@
-import { encode, log, readLines } from "./deps.ts";
+import { log, readLines } from "./deps.ts";
 
 import {
   Action,
@@ -19,6 +19,7 @@ import * as gh from "./api.ts";
 import { ReleaseError } from "../../src/error.ts";
 
 const logger = log.create("gh");
+const encoder = new TextEncoder();
 
 export const github = <ReleasePlugin> {
   name: "GitHub",
@@ -28,7 +29,7 @@ export const github = <ReleasePlugin> {
       logger.warning("GitHub token not found!");
       logger.info("Please enter your GitHub token with <repo> score");
       logger.info("(for more info https://git.io/JJyrT)");
-      await Deno.stdout.write(encode("> "));
+      await Deno.stdout.write(encoder.encode("> "));
       for await (let line of readLines(Deno.stdin)) {
         token = line;
         break;

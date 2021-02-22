@@ -1,6 +1,8 @@
-import { decode, ini, join } from "../deps.ts";
+import { ini, join } from "../deps.ts";
 
 import { ReleaseError } from "./error.ts";
+
+const decoder = new TextDecoder();
 
 export async function git(
   repo: string,
@@ -18,7 +20,7 @@ export async function git(
   let err = await process.stderrOutput();
   let status = await process.status();
   process.close();
-  return [status, decode(output), decode(err)];
+  return [status, decoder.decode(output), decoder.decode(err)];
 }
 
 export async function ezgit(
