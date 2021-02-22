@@ -1,4 +1,4 @@
-import { join, exists, ensureFile } from "../deps.ts";
+import { ensureFile, exists, join } from "../deps.ts";
 import { home } from "./dirs.ts";
 
 const STORE_PATH = [".config", "release"];

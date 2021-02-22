@@ -2,7 +2,7 @@ import { exists, join } from "../deps.ts";
 import { ReleaseError } from "./error.ts";
 
 import { fetchBranch } from "./branch.ts";
-import { fetchCommits, Commit } from "./commits.ts";
+import { Commit, fetchCommits } from "./commits.ts";
 import { fetchTags, Tag } from "./tags.ts";
 import { fetchStatus, Status } from "./status.ts";
 import { fetchConfig, GitConfig } from "./git.ts";

@@ -1,4 +1,4 @@
-import { log, colors, semver, wait, delay } from "./deps.ts";
+import { colors, delay, log, semver, wait } from "./deps.ts";
 
 import type { ReleaseConfig } from "./config.ts";
 import { fetchRepo, Repo } from "./src/repo.ts";

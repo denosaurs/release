@@ -1,4 +1,4 @@
-import { decode, join, ini } from "../deps.ts";
+import { decode, ini, join } from "../deps.ts";
 
 import { ReleaseError } from "./error.ts";
 

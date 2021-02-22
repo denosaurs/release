@@ -1,9 +1,9 @@
-import { log, readLines, encode } from "./deps.ts";
+import { encode, log, readLines } from "./deps.ts";
 
 import {
-  ReleasePlugin,
-  ReleaseConfig,
   Action,
+  ReleaseConfig,
+  ReleasePlugin,
   Repo,
   store,
 } from "../../plugin.ts";

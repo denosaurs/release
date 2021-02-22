@@ -1,16 +1,16 @@
 import { join } from "./deps.ts";
 
 import type {
-  ReleasePlugin,
-  ReleaseConfig,
   Action,
+  ReleaseConfig,
+  ReleasePlugin,
   Repo,
 } from "../../plugin.ts";
 import {
   Document,
   Filter,
-  pushHeader,
   polyfillVersion,
+  pushHeader,
   pushTag,
   render,
 } from "../../src/changelog.ts";
