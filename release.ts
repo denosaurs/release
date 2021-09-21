@@ -22,7 +22,7 @@ export type Action =
 
 if (import.meta.main) {
   await log.setup({ filter: "INFO" });
-  let args = [...Deno.args];
+  const args = [...Deno.args];
 
   if (~args.indexOf("--help") || ~args.indexOf("-h") || args.length === 0) {
     console.log(`${colors.bold("RELEASE")} v${VERSION}
